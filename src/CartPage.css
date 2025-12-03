@@ -1,0 +1,140 @@
+.cart-page {
+  padding: 40px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.cart-page h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.cart-img {
+  width: 120px;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/*===== معلومات المنتج =====*/
+.info {
+  flex: 1;
+  padding-left: 20px;
+  text-align: right;
+}
+
+.info h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.info p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+/*===== صندوق الكمية + و - =====*/
+.qty-box {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+}
+
+.qty-btn {
+  width: 40px;
+  height: 40px;
+  background: black;
+  color: white;
+  font-size: 22px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.qty-btn:hover {
+  background: #444;
+}
+
+.qty-num {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/*===== زرار الحذف =====*/
+.delete-btn,
+.info button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: 0.2s;
+  font-size: 16px;
+}
+
+.delete-btn:hover {
+  background: rgb(200, 0, 0);
+}
+
+/*===== إجمالي السعر =====*/
+.cart-page h2 {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/*===== الأزرار في الأسفل =====*/
+.cart-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.clear-btn {
+  background: #777;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+}
+
+.clear-btn:hover {
+  background: #555;
+}
+
+.buy-btn {
+  background: black;
+  padding: 10px 30px;
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+}
+
+.buy-btn:hover {
+  background: #222;
+}

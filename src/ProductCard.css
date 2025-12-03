@@ -1,0 +1,98 @@
+.product-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: 0.3s;
+}
+
+.pc-image-wrapper {
+  width: 100%;
+  display: block;
+}
+
+.pc-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* الكلمة تحت الصورة */
+.pc-view-more {
+  text-align: center;
+  font-size: 13px;        /* حجم أكبر */
+  font-weight: 600;       /* أوضح */
+  color: #444;            /* لون أقوى */
+  margin-top: 8px;
+  letter-spacing: 0.3px;  /* شكل أنضف */
+}
+
+
+/* اسم المنتج */
+.pc-name {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+/* السعر */
+.pc-price {
+  font-size: 16px;
+  color: #333;
+  margin: 8px 0;
+}
+
+/* الألوان */
+.pc-colors {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 6px 0;
+}
+
+.pc-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  cursor: pointer;
+}
+
+.pc-color.active {
+  border-color: #000;
+}
+
+/* المقاسات */
+.pc-sizes {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.pc-size-btn {
+  padding: 5px 12px;
+  border: 1px solid #000;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.pc-size-btn.active {
+  background: #000;
+  color: #fff;
+}
+
+/* زر السلة */
+.pc-add-btn {
+  width: 100%;
+  padding: 10px;
+  background: #000;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}

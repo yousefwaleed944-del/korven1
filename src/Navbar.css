@@ -1,0 +1,78 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: #000000;
+  color: rgb(255, 255, 255);
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.nav-links a:hover {
+  color: #ffa500;
+}
+/* مثال عام لNavbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  box-sizing: border-box;
+  flex-wrap: wrap; /* يسمح بالالتفاف على الموبايل */
+}
+
+.navbar .menu {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .navbar .menu {
+    gap: 12px;
+    font-size: 15px;
+  }/* مثال عام لNavbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  box-sizing: border-box;
+  flex-wrap: wrap; /* يسمح بالالتفاف على الموبايل */
+}
+
+.navbar .menu {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .navbar .menu {
+    gap: 12px;
+    font-size: 15px;
+  }
+  .navbar {
+    padding: 10px;
+  }
+}
+
+  .navbar {
+    padding: 10px;
+  }
+}

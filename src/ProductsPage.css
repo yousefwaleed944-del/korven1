@@ -1,0 +1,96 @@
+
+
+
+
+.product-name {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.product-price {
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+
+/* ---------- COLORS ---------- */
+.colors {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.color-option {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  transition: 0.2s;
+}
+
+.color-option.active {
+  border: 2px solid #000;
+  transform: scale(1.15);
+}
+
+/* ---------- SIZES ---------- */
+.sizes {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.size-btn {
+  padding: 5px 10px;
+  border: 1px solid #999;
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.size-btn.active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+/* ---------- Button ---------- */
+.add-btn {
+  width: 100%;
+  padding: 12px;
+  background: black;
+  color: white;
+  font-size: 15px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+.add-btn:hover {
+  background: #333;
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 منتجات في الصف */
+  gap: 20px;
+  padding: 20px;
+}
+
+/* للموبايل */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr); /* صفين فوق بعض */
+  }
+}
+
+/* للتابلت */
+@media (max-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr); 
+  }
+}

@@ -1,94 +1,124 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { supabase } from "./supabaseClient";
 import { useCart } from "./CartContext";
-import { toast } from "react-toastify";
 import "./ProductDetails.css";
 
-function ProductDetails({ products }) {
+export default function ProductDetails({ openCart }) {
   const { id } = useParams();
-  const product = products.find((p) => p.id === parseInt(id));
-
   const { addToCart } = useCart();
 
-  const [mainImage, setMainImage] = useState(product.images[0]);
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
+  const [product, setProduct] = useState(null);
+  const [mainImage, setMainImage] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+  const [buttonShake, setButtonShake] = useState(false);
+
+  useEffect(() => {
+    async function loadProduct() {
+      let { data } = await supabase
+        .from("products")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+      if (data) {
+        setProduct(data);
+        setMainImage(data.images[0]);
+      }
+    }
+    loadProduct();
+  }, [id]);
+
+  if (!product) return <p>Loading...</p>;
+
+  const add = () => {
+    if (!selectedColor || !selectedSize) return;
+
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: mainImage,
+      color: selectedColor,
+      size: selectedSize,
+      quantity: 1,
+    });
+
+    // ✨ Animation: button shake
+    setButtonShake(true);
+    setTimeout(() => setButtonShake(false), 400);
+
+    // ✨ Open Cart Drawer automatically
+    if (openCart) openCart();
+  };
 
   return (
-    <div className="details-container">
-      
-      {/* LEFT IMAGES */}
-      <div className="left-section">
-        {/* Main Image */}
-        <img src={mainImage} alt={product.name} className="main-image" />
+    <div className="product-page">
 
-        {/* Thumbnails */}
-        <div className="thumbnails">
-          {product.images.map((img, index) => (
+      {/* LEFT SIDE */}
+      <div className="left-side">
+        <img src={mainImage} className="main-img" alt="" />
+
+        <div className="thumb-row">
+          {product.images.map((img, i) => (
             <img
-              key={index}
+              key={i}
               src={img}
-              className={`thumb ${mainImage === img ? "active" : ""}`}
+              className={`thumb-img ${mainImage === img ? "active" : ""}`}
               onClick={() => setMainImage(img)}
-              alt="thumbnail"
             />
           ))}
         </div>
-
-        {/* Caption */}
-        <p className="caption">{product.caption}</p>
       </div>
 
-      {/* RIGHT INFO */}
-      <div className="right-section">
-        <h1>{product.name}</h1>
-        <p className="price">${product.price}EGP</p>
+      {/* RIGHT SIDE */}
+      <div className="right-side">
+        <h1 className="product-title">{product.name}</h1>
+        <h2 className="product-price">{product.price} EGP</h2>
 
-        {/* colors */}
-        <div className="colors">
+        <h3 className="section-label">Color:</h3>
+        <div className="options-row">
           {product.colors.map((color) => (
-            <span
-              key={color}
-              className={`color-circle ${
-                selectedColor === color ? "active" : ""
-              }`}
-              style={{ background: color }}
-              onClick={() => setSelectedColor(color)}
-            ></span>
-          ))}
+  <button
+    key={color}
+    className={`color-btn ${selectedColor === color ? "active" : ""}`}
+    onClick={() => setSelectedColor(color)}
+    style={{
+  backgroundColor: color === "oil" ? "#0b3d3a" : color,  
+  color: color === "white" ? "black" : "white",
+  border: selectedColor === color ? "2px solid black" : "1px solid #ccc"
+}}
+
+  >
+    {color}
+  </button>
+))}
+
         </div>
 
-        {/* sizes */}
-        <div className="sizes">
-          {product.sizes.map((size) => (
+        <h3 className="section-label">Size:</h3>
+        <div className="options-row">
+          {product.sizes.map((s, i) => (
             <button
-              key={size}
-              className={`size-btn ${
-                selectedSize === size ? "active" : ""
-              }`}
-              onClick={() => setSelectedSize(size)}
+              key={i}
+              onClick={() => setSelectedSize(s)}
+              className={`option-btn ${selectedSize === s ? "active" : ""}`}
             >
-              {size}
+              {s}
             </button>
           ))}
         </div>
 
         <button
-          className="add-btn"
-          onClick={() => {
-            addToCart({
-              ...product,
-              selectedColor,
-              selectedSize,
-            });
-            toast.success("Added to cart!");
-          }}
+          className={`add-btn ${buttonShake ? "shake" : ""}`}
+          onClick={add}
         >
           Add to Cart
         </button>
+
+        <p className="product-caption">{product.caption}</p>
       </div>
     </div>
   );
 }
-
-export default ProductDetails;

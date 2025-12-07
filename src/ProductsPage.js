@@ -1,25 +1,40 @@
-import React from "react";
-import ProductCard from "./ProductCard";
-import { useCart } from "./CartContext";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { supabase } from "./supabaseClient";
 import "./ProductsPage.css";
 
-function ProductsPage({ products }) {
-  const { addToCart } = useCart();
+function ProductsPage() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    async function loadProducts() {
+      const { data } = await supabase.from("products").select("*");
+      setProducts(data);
+    }
+    loadProducts();
+  }, []);
 
   return (
-    <main className="products-container">
-      <h2 className="products-title">Featured Products</h2>
+    <div className="products-container">
+      <h1 className="title">Featured Products</h1>
 
-      <div className="product-grid">
-        {products.map((p) => (
-          <ProductCard
-            key={p.id}
-            product={p}
-            addToCart={addToCart}
-          />
+      <div className="products-grid">
+        {products.map((product) => (
+          <div className="product-card" key={product.id}>
+            <Link to={`/product/${product.id}`}>
+              <img
+                src={product.images?.[0]}
+                alt={product.name}
+                className="product-image"
+              />
+            </Link>
+
+            <h3 className="product-name">{product.name}</h3>
+            <p className="product-price">{product.price} EGP</p>
+          </div>
         ))}
       </div>
-    </main>
+    </div>
   );
 }
 

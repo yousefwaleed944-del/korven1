@@ -30,25 +30,21 @@ function Home() {
 
         <div className="featured-grid">
 
-          {/* Card 1 */}
           <div className="featured-card">
             <img src="https://i.postimg.cc/G3SkY191/IMG_4634.jpg" alt="Product 1" />
             <h3>black tank top ,Trapstar sweet pants</h3>
           </div>
 
-          {/* Card 2 */}
           <div className="featured-card">
             <img src="https://i.postimg.cc/BnR5j3M3/IMG_1722.jpg" alt="Product 2" />
             <h3>black tank top ,black sweet pants</h3>
           </div> 
 
-          {/* Card 3 */}
           <div className="featured-card">
             <img src="https://i.postimg.cc/NMThqdSq/IMG-1748(1).png" alt="Product 3" />
             <h3>black tank top ,poma sweet pants</h3>
           </div>
 
-          {/* Card 4 */}
           <div className="featured-card">
             <img src="https://i.postimg.cc/3x1Lfpsy/IMG_0383.jpg" alt="Product 4" />
             <h3>oil and black sweet pants</h3>
@@ -56,11 +52,6 @@ function Home() {
 
         </div>
       </section>
-
-      {/* FOOTER */}
-      <footer className="footer">
-        <p>&copy; 2025 YourBrand. All rights reserved.</p>
-      </footer>
 
     </div>
   );

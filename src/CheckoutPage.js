@@ -22,17 +22,6 @@ function CheckoutPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("DATA SENT:", {
-      name,
-      phone,
-      email,
-      governorate,
-      address,
-      nots,
-      cart: cartItems,
-      total,
-    });
-
     const { error } = await supabase.from("ofashop").insert([
       {
         name,
@@ -41,14 +30,14 @@ function CheckoutPage() {
         governorate,
         address,
         nots,
-        cart: cartItems, // لازم يكون array مش undefined
-        total: Number(total), // لازم رقم
+        cart: cartItems,   // ← كده هيترفع كويس
+        total: Number(total),
       },
     ]);
 
     if (error) {
-      console.log("Submit error:", error);
-      setMessage("❌ خطأ أثناء تسجيل الطلب");
+      console.log(error);
+      setMessage("❌ حدث خطأ أثناء تسجيل الطلب");
       return;
     }
 
@@ -68,9 +57,7 @@ function CheckoutPage() {
         <input placeholder="العنوان كامل" value={address} onChange={(e) => setAddress(e.target.value)} />
         <textarea placeholder="ملاحظات إضافية" value={nots} onChange={(e) => setNots(e.target.value)} />
 
-        <button type="submit" className="checkout-btn">
-          Send Order
-        </button>
+        <button type="submit" className="checkout-btn">Send Order</button>
       </form>
 
       {message && <p className="checkout-message">{message}</p>}

@@ -2,66 +2,93 @@ import React, { createContext, useContext, useState } from "react";
 
 const CartContext = createContext();
 
-export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+export function CartProvider({ children }) {
+  const [cartItems, setCartItems] = useState([]);
 
-  // ========== ADD TO CART ==========
-  const addToCart = (product) => {
-    setCart((prev) => {
-      const exists = prev.find(
-        (item) =>
-          item.id === product.id &&
-          item.selectedColor === product.selectedColor &&
-          item.selectedSize === product.selectedSize
+  const addToCart = (item) => {
+    setCartItems((prev) => {
+      const found = prev.find(
+        (i) =>
+          i.id === item.id &&
+          i.color === item.color &&
+          i.size === item.size
       );
 
-      if (exists) {
-        return prev.map((item) =>
-          item.id === product.id &&
-          item.selectedColor === product.selectedColor &&
-          item.selectedSize === product.selectedSize
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
+      if (found) {
+        return prev.map((i) =>
+          i === found ? { ...i, quantity: i.quantity + 1 } : i
         );
-      } else {
-        return [...prev, { ...product, quantity: 1 }];
       }
+
+      return [...prev, item];
     });
   };
 
-  // ========== REMOVE FROM CART ==========
-  const removeFromCart = (id, color, size) => {
-    setCart((prev) =>
+  const increaseQty = (item) => {
+    setCartItems((prev) =>
+      prev.map((i) =>
+        i.id === item.id &&
+        i.color === item.color &&
+        i.size === item.size
+          ? { ...i, quantity: i.quantity + 1 }
+          : i
+      )
+    );
+  };
+
+  const decreaseQty = (item) => {
+    setCartItems((prev) =>
+      prev
+        .map((i) =>
+          i.id === item.id &&
+          i.color === item.color &&
+          i.size === item.size
+            ? { ...i, quantity: i.quantity - 1 }
+            : i
+        )
+        .filter((i) => i.quantity > 0)
+    );
+  };
+
+  const removeFromCart = (item) => {
+    setCartItems((prev) =>
       prev.filter(
-        (item) =>
+        (i) =>
           !(
-            item.id === id &&
-            item.selectedColor === color &&
-            item.selectedSize === size
+            i.id === item.id &&
+            i.color === item.color &&
+            i.size === item.size
           )
       )
     );
   };
 
-  // ========== CLEAR ==========
-  const clearCart = () => setCart([]);
+  const clearCart = () => {
+    setCartItems([]); // ← حل المشكلة
+  };
 
-  // ========== TOTAL ==========
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
   return (
     <CartContext.Provider
       value={{
-        cartItems: cart,
+        cartItems,
         addToCart,
         removeFromCart,
-        clearCart,
+        increaseQty,
+        decreaseQty,
         total,
+        clearCart,   // ← مهم
       }}
     >
       {children}
     </CartContext.Provider>
   );
-};
+}
 
-export const useCart = () => useContext(CartContext);
+export function useCart() {
+  return useContext(CartContext);
+}

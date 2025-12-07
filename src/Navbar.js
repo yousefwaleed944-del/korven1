@@ -3,30 +3,28 @@ import { Link } from "react-router-dom";
 import { useCart } from "./CartContext";
 import "./Navbar.css";
 
-function Navbar({ openCart }) {
+export default function Navbar({ openCart }) {
   const { cartItems } = useCart();
-
-  const totalQuantity = cartItems.reduce(
-    (sum, item) => sum + item.quantity,
-    0
-  );
+  const totalQty = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <nav>
-      <h1 className="logo">OFA Shop</h1>
+    <nav className="nav">
+      <div className="nav-container">
+        <div className="nav-logo">
+          <Link to="/">KORVEN</Link>
+        </div>
 
-      <div className="nav-links">
-        <Link to="/">Home</Link>
-        <Link to="/products">Products</Link>
-        <Link to="/about">About</Link>
+        <ul className="nav-links">
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/products">Products</Link></li>
+          <li><Link to="/about">About</Link></li>
+        </ul>
 
-        {/* زرار فتح السلة في النافبار */}
-        <button onClick={openCart} className="cart-btn">
-          🛒 ({totalQuantity})
-        </button>
+        <div className="nav-cart" onClick={openCart}>
+          <span className="cart-icon">🛒</span>
+          {totalQty > 0 && <span className="cart-badge">{totalQty}</span>}
+        </div>
       </div>
     </nav>
   );
 }
-
-export default Navbar;

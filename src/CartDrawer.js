@@ -1,48 +1,48 @@
 import React from "react";
 import "./CartDrawer.css";
-import { useNavigate } from "react-router-dom";
+import { useCart } from "./CartContext";
+import { Link } from "react-router-dom";
 
-function CartDrawer({ isOpen, closeDrawer, cartItems, total, removeFromCart }) {
-  const navigate = useNavigate();
+export default function CartDrawer({ isOpen, closeDrawer }) {
+  const { cartItems, removeFromCart, increaseQty, decreaseQty, total } = useCart();
 
   return (
     <>
+      {/* Overlay Click to Close */}
       <div
-        className={`overlay ${isOpen ? "show" : ""}`}
+        className={`drawer-overlay ${isOpen ? "open" : ""}`}
         onClick={closeDrawer}
       ></div>
 
-      <div className={`cart-drawer ${isOpen ? "open" : ""}`}>
-        <h2 className="drawer-title">Your Cart</h2>
+      <div className={`drawer ${isOpen ? "open" : ""}`}>
+        <div className="drawer-header">
+          <h2>Your Cart</h2>
 
-        <div className="drawer-items">
+          {/* Close Button */}
+          <button className="close-btn" onClick={closeDrawer}>✕</button>
+        </div>
+
+        <div className="drawer-content">
           {cartItems.length === 0 ? (
             <p className="empty">Your cart is empty</p>
           ) : (
-            cartItems.map((item, index) => (
-              <div className="drawer-item" key={index}>
-                <img
-                  src={item.images[0]}
-                  alt={item.name}
-                  className="drawer-img"
-                />
+            cartItems.map((item) => (
+              <div key={item.id + item.color + item.size} className="drawer-item">
+                <img src={item.image} className="drawer-img" alt="" />
 
                 <div className="drawer-info">
                   <h3>{item.name}</h3>
-                  <p>{item.price} جنيه</p>
-                  <p>Size: {item.selectedSize}</p>
-                  <p>Color: {item.selectedColor}</p>
+                  <p>{item.price} EGP</p>
+                  <p><strong>Color:</strong> {item.color}</p>
+                  <p><strong>Size:</strong> {item.size}</p>
 
-                  <button
-                    className="remove-btn"
-                    onClick={() =>
-                      removeFromCart(
-                        item.id,
-                        item.selectedColor,
-                        item.selectedSize
-                      )
-                    }
-                  >
+                  <div className="qty-row">
+                    <button className="qty-btn" onClick={() => decreaseQty(item)}>-</button>
+                    <span>{item.quantity}</span>
+                    <button className="qty-btn" onClick={() => increaseQty(item)}>+</button>
+                  </div>
+
+                  <button className="remove-btn" onClick={() => removeFromCart(item)}>
                     Remove
                   </button>
                 </div>
@@ -51,34 +51,18 @@ function CartDrawer({ isOpen, closeDrawer, cartItems, total, removeFromCart }) {
           )}
         </div>
 
-        <div className="drawer-footer">
-          <h3>Total: {total} جنيه</h3>
+        {cartItems.length > 0 && (
+          <div className="drawer-footer">
+            <h3>Total: {total} EGP</h3>
 
-          {/* فتح صفحة السلة */}
-          <button
-            className="view-cart-btn"
-            onClick={() => {
-              closeDrawer();
-              navigate("/cart");
-            }}
-          >
-            View Cart
-          </button>
-
-          {/* فتح صفحة الدفع */}
-          <button
-            className="checkout-btn"
-            onClick={() => {
-              closeDrawer();
-              navigate("/checkout");
-            }}
-          >
-            Checkout
-          </button>
-        </div>
+            <Link to="/checkout">
+              <button className="checkout-btn" onClick={closeDrawer}>
+                Checkout
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
     </>
   );
 }
-
-export default CartDrawer;

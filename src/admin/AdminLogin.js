@@ -1,57 +1,83 @@
 import React, { useState } from "react";
 import { supabase } from "../supabaseClient";
 import { useNavigate } from "react-router-dom";
-import "./Admin.css";
 
 export default function AdminLogin() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  async function handleLogin(e) {
+  const submit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setError("");
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
-    setLoading(false);
-
     if (error) {
-      alert("خطأ في الدخول: " + error.message);
-    } else {
-      navigate("/admin");
+      setError("بيانات الدخول غير صحيحة");
+      return;
     }
-  }
+
+    navigate("/admin-dashboard");
+  };
 
   return (
-    <div className="admin-root">
-      <div className="admin-wrap">
-        <h2 className="admin-title">Admin Login</h2>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "#f6f6f6",
+      }}
+    >
+      <form
+        onSubmit={submit}
+        style={{
+          width: 360,
+          padding: 30,
+          background: "#fff",
+          borderRadius: 12,
+        }}
+      >
+        <h2>Admin Login</h2>
 
-        <form onSubmit={handleLogin} className="admin-form">
-          <input
-            type="email"
-            placeholder="admin@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={{ width: "100%", padding: 14, marginBottom: 14 }}
+        />
 
-          <input
-            type="password"
-            placeholder="******"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={{ width: "100%", padding: 14, marginBottom: 14 }}
+        />
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Loading..." : "Login"}
-          </button>
-        </form>
-      </div>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+
+        <button
+          type="submit"
+          style={{
+            width: "100%",
+            padding: 14,
+            background: "#000",
+            color: "#fff",
+            border: "none",
+          }}
+        >
+          Login
+        </button>
+      </form>
     </div>
   );
 }

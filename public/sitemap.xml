@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Home page -->
+  <url>
+    <loc>https://korven-by-ofa-1.netlify.app/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Products page -->
+  <url>
+    <loc>https://korven-by-ofa-1.netlify.app/products</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Product pages -->
+  <url>
+    <loc>https://korven-by-ofa-1.netlify.app/product/1</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://korven-by-ofa-1.netlify.app/product/2</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://korven-by-ofa-1.netlify.app/product/3</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://korven-by-ofa-1.netlify.app/product/4</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://korven-by-ofa-1.netlify.app/product/5</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://korven-by-ofa-1.netlify.app/product/6</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://korven-by-ofa-1.netlify.app/product/7</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://korven-by-ofa-1.netlify.app/product/8</loc>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>
+

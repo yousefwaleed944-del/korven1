@@ -1,3 +1,19 @@
+/* PAGE ANIMATION */
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .product-page {
   max-width: 1300px;
   margin: auto;
@@ -6,7 +22,7 @@
   gap: 50px;
 }
 
-/* LEFT SIDE */
+/* LEFT */
 .left-side {
   width: 50%;
 }
@@ -16,6 +32,21 @@
   height: 540px;
   object-fit: cover;
   border-radius: 14px;
+}
+
+.img-zoom {
+  animation: zoomIn 0.5s ease;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.96);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .thumb-row {
@@ -31,13 +62,18 @@
   object-fit: cover;
   cursor: pointer;
   border: 2px solid transparent;
+  transition: transform 0.2s;
+}
+
+.thumb-img:hover {
+  transform: scale(1.05);
 }
 
 .thumb-img.active {
   border-color: black;
 }
 
-/* RIGHT SIDE */
+/* RIGHT */
 .right-side {
   width: 50%;
 }
@@ -66,7 +102,8 @@
   flex-wrap: wrap;
 }
 
-.option-btn {
+.option-btn,
+.color-btn {
   padding: 10px 20px;
   border-radius: 10px;
   background: white;
@@ -75,12 +112,28 @@
   transition: 0.2s;
 }
 
-.option-btn.active {
+.option-btn.active,
+.color-btn.active {
   border: 2px solid black;
 }
 
+.select-error {
+  margin-top: 12px;
+  color: #e53935;
+  font-size: 14px;
+  animation: shakeText 0.3s;
+}
+
+@keyframes shakeText {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
 .add-btn {
-  margin-top: 30px;
+  margin-top: 24px;
   padding: 16px;
   width: 260px;
   background: black;
@@ -97,43 +150,44 @@
   transform: translateY(-3px);
 }
 
+.add-btn.shake {
+  animation: shakeBtn 0.4s;
+}
+
+@keyframes shakeBtn {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-6px); }
+  100% { transform: translateX(0); }
+}
+
 .product-caption {
   margin-top: 30px;
   font-size: 17px;
   color: #333;
   line-height: 1.5;
 }
-/* 📱 MOBILE RESPONSIVE */
+
+/* MOBILE */
 @media (max-width: 768px) {
   .product-page {
     flex-direction: column;
     padding: 20px;
   }
 
-  .left-side, 
+  .left-side,
   .right-side {
-    width: 100% !important;
+    width: 100%;
   }
 
   .main-img {
     height: 380px;
   }
 
-  .thumb-row {
-    gap: 8px;
-  }
-
   .thumb-img {
     width: 60px;
     height: 60px;
-  }
-
-  .product-title {
-    font-size: 26px;
-  }
-
-  .product-price {
-    font-size: 20px;
   }
 
   .add-btn {
